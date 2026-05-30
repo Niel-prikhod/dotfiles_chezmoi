@@ -1,0 +1,5 @@
+require("niel.set")
+require("niel.remap")
+require("niel.config.lazy")
+require("niel.micropython")
+print("hello niel")

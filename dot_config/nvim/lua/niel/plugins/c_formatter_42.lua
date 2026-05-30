@@ -1,0 +1,27 @@
+return {
+	"cacharle/c_formatter_42.vim",
+	config = function()
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = { "*.c", "*.h", "*.cpp" },
+			callback = function()
+				local file_path = vim.fn.expand("%:p")
+				local dir_path = vim.fn.fnamemodify(file_path, ":h") -- Get directory part
+				local dirs = {}
+				for dir in string.gmatch(dir_path, "[^/]+") do
+					table.insert(dirs, dir)
+				end
+				local contains_42 = false
+				for _, dir in ipairs(dirs) do
+					if dir:find("42") then
+						contains_42 = true
+						break
+					end
+				end
+				if contains_42 then
+					vim.cmd("CFormatter42")
+				end
+			end,
+		})
+	end,
+	vim.keymap.set('n', "<S-f>", "<cmd>CFormatter42<CR>", { desc = "Format with c_formatter_42" })
+}
