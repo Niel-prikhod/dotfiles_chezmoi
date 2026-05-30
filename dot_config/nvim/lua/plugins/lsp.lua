@@ -80,17 +80,16 @@ return {
 				settings = { pylsp = { plugins = { pyflakes = { enabled = true } } } },
 			})
 
-			vim.lsp.config("clangd", {
-				cmd = {
-					"clangd",
-					"--background-index",
-					"--query-driver=/usr/bin/arm-none-eabi-gcc",
-					"--clang-tidy",
-					"--header-insertion=iwyu",
-					"--compile-commands-dir=build/Debug",
-				},
-				on_attach = on_attach,
-				root_markers = { "compile_commands.json", "build/Debug/compile_commands.json", ".git" },
+	vim.lsp.config("clangd", {
+			cmd = {
+				"clangd",
+				"--background-index",
+				"--query-driver=/usr/bin/arm-none-eabi-gcc",
+				"--clang-tidy",
+				"--header-insertion=iwyu",
+			},
+			on_attach = on_attach,
+			root_markers = { "compile_commands.json", "build/Debug/compile_commands.json", ".git", ".clangd" },
 				capabilities = require('cmp_nvim_lsp').default_capabilities(),
 			})
 
