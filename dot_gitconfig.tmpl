@@ -1,0 +1,17 @@
+[user]
+	email = {{ .email | quote }}
+	name = {{ .chezmoi.username }}
+[core]  
+	editor = nvim  
+	pager = less
+[alias]  
+	st = status  
+	co = checkout  
+	br = branch  
+	cm = commit
+[init]
+	defaultBranch = main
+[fetch]
+	prune = true
+[push]
+	autoSetupRemote = on
