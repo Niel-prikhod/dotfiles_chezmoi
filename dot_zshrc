@@ -1,0 +1,63 @@
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time Oh My Zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+HYPHEN_INSENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+export EDITOR='nvim'
+# Compilation flags
+export ARCHFLAGS="-arch $(uname -m)"
+# Scripts directory, oss-cad-suite software
+export PATH="$HOME/bin:$HOME/opt/oss-cad-suite/bin:$PATH"
+export PATH="/home/niel/.opencode/bin:$PATH"
+
+# Aliases
+alias vim="nvim"
+alias merge="merge --no-ff"
+alias sync="syncthing"
+alias code="cd /mnt/wd_blue/code"
+alias ing="cd /mnt/wd_blue/VSCHT/Ing"
+alias wd="cd /mnt/wd_blue"
+alias zsh_refresh="source ~/.zshrc"
+alias opencode="opencode --port"
+alias zshconf="chenzmoi edit ~/.zshrc"
+alias vimconf="chenzmoi edit ~/.config/nvim/lua/niel"
+alias chze="chenzmoi edit"
+alias chzg="chenzmoi git"
+
+export DEBUGINFOD_URLS="$DEBUGINFOD_URLS https://debuginfod.elfutils.org/"
+export DEBUGINFOD_URLS="$DEBUGINFOD_URLS https://debuginfod.archlinux.org/"
+export PICO_SDK_PATH="$HOME/bin/pico-sdk"
+export PICO_TOOLCHAIN_PATH="$HOME/opt/llvm-et-arm/LLVM-ET-Arm-19.1.5-Linux-x86_64"
+
+# pyenv initialization
+if [[ -d "$HOME/.pyenv" ]]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  function pyenv() {
+    unfunction pyenv
+    eval "$(command pyenv init -)"
+    pyenv "$@"
+  }
+fi
