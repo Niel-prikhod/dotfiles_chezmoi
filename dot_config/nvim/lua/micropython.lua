@@ -1,4 +1,5 @@
 -- MicroPython / Raspberry Pi Pico helper for Neovim
+print("hello niel")
 -- Put this whole block into your init.lua.
 -- Edit mpremote_path to the full path of your project's venv mpremote binary.
 

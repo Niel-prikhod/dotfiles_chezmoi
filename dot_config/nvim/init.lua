@@ -1,2 +1,4 @@
-require("niel")
-print("hello")
+require("set")
+require("remap")
+require("config.lazy")
+require("micropython")
