@@ -10,3 +10,9 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
+vim.o.signcolumn = "yes"
+vim.o.inccommand = "split"
+vim.o.splitright = true
+vim.o.splitbelow = true
+vim.o.updatetime = 250
+

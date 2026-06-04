@@ -14,6 +14,13 @@ return {
 				"python",
 				"bash",
 				"lua",
+				"json",
+				"toml",
+				"yaml",
+				"asm",
+				"nasm",
+				"make",
+				"cmake",
 			}
 			require("nvim-treesitter").setup()
 			require("nvim-treesitter").install(parsers)

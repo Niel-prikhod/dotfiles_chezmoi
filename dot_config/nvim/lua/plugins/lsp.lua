@@ -101,6 +101,28 @@ return {
 				callback = function(args)
 					local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 					if not client then return end
+
+					if client:supports_method('textDocument/documentHighlight', args.buf) then
+						local hl_group = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
+						vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+							buffer = args.buf,
+							group = hl_group,
+							callback = vim.lsp.buf.document_highlight,
+						})
+						vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+							buffer = args.buf,
+							group = hl_group,
+							callback = vim.lsp.buf.clear_references,
+						})
+						vim.api.nvim_create_autocmd('LspDetach', {
+							group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
+							callback = function(e)
+								vim.lsp.buf.clear_references()
+								vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = e.buf }
+							end,
+						})
+					end
+
 					local ft = vim.bo[args.buf].filetype
 					if ft == "c" or ft == "cpp" then return end
 					if client.supports_method('textDocument/formatting') then
@@ -118,11 +140,11 @@ return {
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
 					local bufnr = args.buf
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
 					vim.keymap.set("n", "gd", function()
 						vim.lsp.buf.definition()
-						vim.cmd("normal! zz") -- Center after jumping
+						vim.cmd("normal! zz")
 					end, { buffer = bufnr, desc = "Go to definition" })
-					-- vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Show hover info" })
 					vim.keymap.set("n", "gf", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Go to declaration" })
 					vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { buffer = bufnr, desc = "Show hover info" })
 					vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
@@ -137,6 +159,25 @@ return {
 						{ noremap = true, silent = true })
 					vim.api.nvim_set_keymap('n', '<leader>d]', '<cmd>lua vim.diagnostic.goto_next()<CR>',
 						{ noremap = true, silent = true })
+
+					if client and client:supports_method('textDocument/inlayHint', bufnr) then
+						vim.keymap.set('n', '<leader>th', function()
+							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr })
+						end, { buffer = bufnr, desc = "Toggle inlay hints" })
+					end
+
+					vim.keymap.set("n", "grr", require("telescope.builtin").lsp_references,
+						{ buffer = bufnr, desc = "References" })
+					vim.keymap.set("n", "grd", require("telescope.builtin").lsp_definitions,
+						{ buffer = bufnr, desc = "Definitions" })
+					vim.keymap.set("n", "gri", require("telescope.builtin").lsp_implementations,
+						{ buffer = bufnr, desc = "Implementations" })
+					vim.keymap.set("n", "gO", require("telescope.builtin").lsp_document_symbols,
+						{ buffer = bufnr, desc = "Document symbols" })
+					vim.keymap.set("n", "gW", require("telescope.builtin").lsp_dynamic_workspace_symbols,
+						{ buffer = bufnr, desc = "Workspace symbols" })
+					vim.keymap.set("n", "grt", require("telescope.builtin").lsp_type_definitions,
+						{ buffer = bufnr, desc = "Type definitions" })
 				end,
 			})
 
