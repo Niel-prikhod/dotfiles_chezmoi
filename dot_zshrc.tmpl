@@ -30,6 +30,7 @@ export EDITOR='nvim'
 # Compilation flags
 export ARCHFLAGS="-arch $(uname -m)"
 # Scripts directory, oss-cad-suite software
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$HOME/opt/oss-cad-suite/bin:$PATH"
 export PATH="/home/niel/.opencode/bin:$PATH"
 
@@ -37,9 +38,15 @@ export PATH="/home/niel/.opencode/bin:$PATH"
 alias vim="nvim"
 alias merge="merge --no-ff"
 alias sync="syncthing"
+
+{{ if eq .chezmoi.hostname "niel" }}
 alias code="cd /mnt/wd_blue/code"
 alias ing="cd /mnt/wd_blue/VSCHT/Ing"
 alias wd="cd /mnt/wd_blue"
+{{ else }}
+alias code="cd $HOME/Projects"
+{{end}}
+
 alias zsh_refresh="source ~/.zshrc"
 alias opencode="opencode --port"
 alias zshconf="chezmoi edit ~/.zshrc"
