@@ -40,6 +40,7 @@ return {
 
 	{
 		"nvim-treesitter/nvim-treesitter-context",
+		tag = "v1.0.0",
 		after = "nvim-treesitter",
 		config = function()
 			require 'treesitter-context'.setup {

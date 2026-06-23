@@ -2,6 +2,7 @@
 return {
 	"rose-pine/neovim",
 	name = "rose-pine",
+	tag = "v3.0.2",
 	config = function()
 		require("rose-pine").setup({
 			styles = {

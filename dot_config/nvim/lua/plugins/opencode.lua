@@ -1,10 +1,11 @@
 return {
 	"NickvanDyke/opencode.nvim",
+	tag = "v0.13.2",
 	dependencies = {
 		-- Recommended for `ask()` and `select()`.
 		-- Required for `snacks` provider.
 		---@module 'snacks' <- Loads `snacks.nvim` types for configuration intellisense.
-		{ "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
+		{ "folke/snacks.nvim", tag = "v2.31.0", opts = { input = {}, picker = {}, terminal = {} } },
 	},
 	config = function()
 		---@type opencode.Opts

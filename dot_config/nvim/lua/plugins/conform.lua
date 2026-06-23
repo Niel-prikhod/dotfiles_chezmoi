@@ -1,6 +1,7 @@
 return {
 	{
 		"stevearc/conform.nvim",
+		tag = "v9.1.0",
 		config = function()
 			require("conform").setup({
 				format_on_save = function(bufnr)

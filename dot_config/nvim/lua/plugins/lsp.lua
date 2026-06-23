@@ -1,9 +1,11 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
+		tag = "v2.10.0",
 		dependencies = {
 			{
 				"folke/lazydev.nvim",
+				tag = "v1.10.0",
 				ft = "lua", -- Only load on Lua files
 				opts = {
 					library = {
@@ -11,8 +13,8 @@ return {
 					},
 				},
 			},
-			{ "williamboman/mason.nvim",          config = true },
-			{ "williamboman/mason-lspconfig.nvim" },
+			{ "williamboman/mason.nvim",          tag = "v2.3.1", config = true },
+			{ "williamboman/mason-lspconfig.nvim", tag = "v2.3.0" },
 			{ "hrsh7th/nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lsp" },
 		},
@@ -36,15 +38,15 @@ return {
 				bufnr = bufnr or vim.api.nvim_get_current_buf()
 				local clients = vim.lsp.get_clients({ bufnr = bufnr })
 				for _, client in ipairs(clients) do
-					client.notify("textDocument/didSave", { textDocument = { uri = vim.uri_from_bufnr(bufnr) } })
-					if client.supports_method("workspace/diagnostic/refresh") then
-						client.request("workspace/diagnostic/refresh", {}, function() end, bufnr)
+					client:notify("textDocument/didSave", { textDocument = { uri = vim.uri_from_bufnr(bufnr) } })
+					if client:supports_method("workspace/diagnostic/refresh") then
+						client:request("workspace/diagnostic/refresh", {}, function() end, bufnr)
 					end
 				end
 			end
 
 			local on_attach = function(client, bufnr)
-				if client.supports_method("textDocument/formatting") then
+				if client:supports_method("textDocument/formatting") then
 					vim.keymap.set("n", "<leader>f", function()
 							vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
 						end,
@@ -125,7 +127,7 @@ return {
 
 					local ft = vim.bo[args.buf].filetype
 					if ft == "c" or ft == "cpp" then return end
-					if client.supports_method('textDocument/formatting') then
+					if client:supports_method('textDocument/formatting') then
 						vim.api.nvim_create_autocmd('BufWritePre', {
 							buffer = args.buf,
 							callback = function()
