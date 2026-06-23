@@ -53,7 +53,9 @@ alias zshconf="chezmoi edit ~/.zshrc"
 alias vimconf="chezmoi edit ~/.config/nvim/lua/niel"
 alias chze="chezmoi edit"
 alias chzg="chezmoi git"
-
+{{ if hasSuffix "@rockwellautomation.com" .email }}
+alias mass_git="python Scripts/catscripts/mass_git/mass_git.py si_2.py"
+{{ end }}
 export DEBUGINFOD_URLS="$DEBUGINFOD_URLS https://debuginfod.elfutils.org/"
 export DEBUGINFOD_URLS="$DEBUGINFOD_URLS https://debuginfod.archlinux.org/"
 export PICO_SDK_PATH="$HOME/bin/pico-sdk"
