@@ -6,8 +6,10 @@ PACKAGES=(
 	curl
 	zsh
 	tmux
+	less
 	gcc
 	make
+	tree-sitter-cli
 	ripgrep
 	fd
 	unzip

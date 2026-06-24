@@ -1,4 +1,5 @@
 require("set")
+require("ftdetect")
 require("remap")
 require("config.lazy")
 require("micropython")

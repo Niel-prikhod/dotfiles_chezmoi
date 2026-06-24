@@ -26,6 +26,7 @@ print the package list to install manually.
 | `chezmoi` | `chezmoi` | applies the dotfiles |
 | `git` | `git` | chezmoi source control |
 | `git-delta` | `delta` | `chezmoi diff` (config sets `diff-command = "delta"`) |
+| `less` | `less` | git pager (`core.pager = less`) |
 
 ### Shell / terminal
 
@@ -40,6 +41,7 @@ print the package list to install manually.
 | --- | --- | --- |
 | `neovim` | `nvim` | the editor (>= 0.10) |
 | `gcc`, `make` | C compiler | nvim-treesitter parser compilation |
+| `tree-sitter-cli` | `tree-sitter` | nvim-treesitter parser install (required) |
 | `ripgrep` | `rg` | Telescope live grep |
 | `fd` | `fd` | Telescope file finding (optional but recommended) |
 | `unzip`, `curl` | `unzip`, `curl` | mason.nvim downloads LSP servers |
@@ -55,7 +57,7 @@ print the package list to install manually.
 ### Arch install command
 
 ```sh
-sudo pacman -S --needed git curl zsh tmux neovim gcc make ripgrep fd unzip nodejs npm python python-pip git-delta
+sudo pacman -S --needed git curl zsh tmux less neovim gcc make tree-sitter-cli ripgrep fd unzip nodejs npm python python-pip git-delta
 ```
 
 ## Machine-specific behavior
