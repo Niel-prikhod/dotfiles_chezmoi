@@ -1,5 +1,6 @@
 return {
 	"42Paris/42header",
+	enabled = {{ if hasSuffix "@rockwellautomation.com" .email }}false{{ else }}true{{ end }},
 	config = function()
 		vim.g.user42 = 'dprikhod'
 		vim.g.mail42 = 'dprikhod@student.42.fr'

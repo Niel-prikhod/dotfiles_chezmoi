@@ -1,5 +1,6 @@
 return {
 	"cacharle/c_formatter_42.vim",
+	enabled = {{ if hasSuffix "@rockwellautomation.com" .email }}false{{ else }}true{{ end }},
 	config = function()
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			pattern = { "*.c", "*.h", "*.cpp" },
