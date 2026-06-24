@@ -55,6 +55,7 @@ alias chze="chezmoi edit"
 alias chzg="chezmoi git"
 {{ if hasSuffix "@rockwellautomation.com" .email }}
 alias mass_git="python Scripts/catscripts/mass_git/mass_git.py si_2.py"
+[[ -r "$HOME/.config/zsh/work.zsh" ]] && source "$HOME/.config/zsh/work.zsh"
 {{ end }}
 export DEBUGINFOD_URLS="$DEBUGINFOD_URLS https://debuginfod.elfutils.org/"
 export DEBUGINFOD_URLS="$DEBUGINFOD_URLS https://debuginfod.archlinux.org/"

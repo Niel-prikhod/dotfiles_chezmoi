@@ -1,0 +1,7 @@
+{{ if hasSuffix "@rockwellautomation.com" .email -}}
+Host gh-ra
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/ra_key
+	IdentitiesOnly yes
+{{- end }}
