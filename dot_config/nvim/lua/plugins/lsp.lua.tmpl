@@ -1,3 +1,4 @@
+{{- $work := hasSuffix "@rockwellautomation.com" .email -}}
 return {
 	{
 		"neovim/nvim-lspconfig",
@@ -46,12 +47,14 @@ return {
 			end
 
 			local on_attach = function(client, bufnr)
+{{- if not $work }}
 				if client:supports_method("textDocument/formatting") then
 					vim.keymap.set("n", "<leader>f", function()
 							vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
 						end,
 						{ buffer = bufnr, desc = "LSP: Format buffer" })
 				end
+{{- end }}
 				vim.api.nvim_create_autocmd("BufWritePost", {
 					buffer = bufnr,
 					callback = function()
@@ -127,6 +130,7 @@ return {
 
 					local ft = vim.bo[args.buf].filetype
 					if ft == "c" or ft == "cpp" then return end
+{{- if not $work }}
 					if client:supports_method('textDocument/formatting') then
 						vim.api.nvim_create_autocmd('BufWritePre', {
 							buffer = args.buf,
@@ -135,6 +139,7 @@ return {
 							end,
 						})
 					end
+{{- end }}
 				end,
 			})
 
@@ -151,10 +156,12 @@ return {
 					vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { buffer = bufnr, desc = "Show hover info" })
 					vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
 					vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename symbol" })
+{{- if not $work }}
 					vim.keymap.set("n", "<Leader>f", function()
 						vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
 						vim.cmd("write")
 					end, { buffer = bufnr, desc = "LSP: Format and save" })
+{{- end }}
 					vim.api.nvim_set_keymap('n', '<leader>do', '<cmd>lua vim.diagnostic.open_float()<CR>',
 						{ noremap = true, silent = true })
 					vim.api.nvim_set_keymap('n', '<leader>d[', '<cmd>lua vim.diagnostic.goto_prev()<CR>',

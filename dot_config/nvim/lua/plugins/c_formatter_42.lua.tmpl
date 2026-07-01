@@ -1,3 +1,7 @@
+{{- if hasSuffix "@rockwellautomation.com" .email -}}
+-- Work machine: 42 formatter disabled (company clang-format is used instead).
+return {}
+{{- else -}}
 return {
 	"cacharle/c_formatter_42.vim",
 	enabled = {{ if hasSuffix "@rockwellautomation.com" .email }}false{{ else }}true{{ end }},
@@ -26,3 +30,4 @@ return {
 	end,
 	vim.keymap.set('n', "<S-f>", "<cmd>CFormatter42<CR>", { desc = "Format with c_formatter_42" })
 }
+{{- end -}}
